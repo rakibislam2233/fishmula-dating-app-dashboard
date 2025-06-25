@@ -32,6 +32,7 @@ import EditEvent from "../component/Main/EditEvent/EditEvent";
 import AddDeals from "../component/Main/AddDeals/AddDeals";
 import EditDeals from "../component/Main/EditDeals/EditDeals";
 import DealCategory from "../component/Main/DealCategory/DealCategory";
+import ProfileVerifications from "../component/Main/ProfileVerifications/ProfileVerifications";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <AllUsers />,
+      },
+      {
+        path:"/profile-verification",
+        element: <ProfileVerifications/>
       },
       {
         path: "users/:id",

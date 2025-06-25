@@ -2,9 +2,9 @@ import moment from "moment";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
 
 // eslint-disable-next-line react/prop-types
-const UserCard = ({ user }) => {
+const ProfileVerificationCard = ({ user }) => {
   // eslint-disable-next-line react/prop-types
-  const { fullName, email, profileImage, createdAt, phoneNumber } = user;
+  const { fullName, email, profileImage, createdAt } = user;
 
   return (
     <div className="w-full p-4 border border-[#777777] bg-white rounded-lg space-y-5">
@@ -30,24 +30,20 @@ const UserCard = ({ user }) => {
       </div>
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1>Telephone Number</h1>
-          <h1 className="font-medium">{phoneNumber}</h1>
-        </div>
-        <div>
           <h1>Email</h1>
           <h1 className="font-medium">{email}</h1>
         </div>
       </div>
       <div className="flex justify-end items-center gap-5">
-        <button className="px-5 py-2 border border-rose-500 text-rose-500 rounded-lg">
-          Suspend
+        <button className="px-5 py-2 bg-blue-500 text-white rounded-lg">
+          Verify
         </button>
-        <button className="px-5 py-2 border border-rose-500 text-rose-500 rounded-lg">
-          Block
+        <button className="px-5 py-2  bg-primary rounded-lg">
+          View Media
         </button>
       </div>
     </div>
   );
 };
 
-export default UserCard;
+export default ProfileVerificationCard;

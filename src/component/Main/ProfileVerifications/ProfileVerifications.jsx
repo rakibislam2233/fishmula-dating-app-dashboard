@@ -4,10 +4,10 @@ import {
 } from "../../../redux/features/user/userApi";
 import { CiSliderHorizontal } from "react-icons/ci";
 import { BiSearch } from "react-icons/bi";
-import UserCard from "./UserCard";
 import { Spin } from "antd";
+import ProfileVerificationCard from "./ProfileVerificationcard";
 
-const AllUsers = () => {
+const ProfileVerifications = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allUsers, setAllUsers] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -40,7 +40,7 @@ const AllUsers = () => {
       <>
         <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 pb-10">
           {allUsers?.map((user) => (
-            <UserCard key={user.id} user={user} />
+            <ProfileVerificationCard key={user.id} user={user} />
           ))}
         </div>
         <div className="w-full flex items-center justify-center gap-5">
@@ -67,7 +67,7 @@ const AllUsers = () => {
     <section className="w-full min-h-screen px-5 py-5">
       <div className="w-full flex justify-between items-center mb-10">
         <h1 className="text-xl md:text-2xl text-gray-800 notranslate font-semibold">
-          User Management
+          Profile Verifications List
         </h1>
         <div className="flex items-center gap-3">
           <div className="bg-white flex items-center gap-3 border border-primary px-5 py-3 rounded-full">
@@ -89,4 +89,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default ProfileVerifications;
