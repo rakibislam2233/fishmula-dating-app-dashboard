@@ -24,7 +24,6 @@ import AddSubscription from "../component/Main/AddSubscription/AddSubscription";
 import EditSubscription from "../component/Main/EditSubscription/EditSubscription";
 import ContentModeration from "../component/Main/ContentModeration/ContentModeration";
 import ContentModerationDetails from "../component/Main/ContentModerationDetails/ContentModerationDetails";
-import Analytics from "../component/Main/Analytics/Analytics";
 import DealsEvents from "../component/Main/DealsEvents/DealsEvents";
 import UserDetails from "../component/Main/UserDetails/UserDetails";
 import OnboardingImage from "../component/Main/OnBardingImages/OnBardingImages";
@@ -67,10 +66,6 @@ const router = createBrowserRouter([
       {
         path: "/content-moderation/:id",
         element: <ContentModerationDetails />,
-      },
-      {
-        path: "/analytics",
-        element: <Analytics/>,
       },
       {
         path: "/deals-events",

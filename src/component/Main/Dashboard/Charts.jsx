@@ -1,37 +1,50 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import {useRef } from "react";
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useGetEarningGraphChartsQuery } from "../../../redux/features/dashboard/dashboardApi";
-import { FaCalendar, FaClock, FaChartBar } from "react-icons/fa";
 
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+// Sample data for demonstration - replace with your API data
+const sampleData = {
+  weekly: [
+    { name: "Week 1", totalEarnings: 2500 },
+    { name: "Week 2", totalEarnings: 3200 },
+    { name: "Week 3", totalEarnings: 2800 },
+    { name: "Week 4", totalEarnings: 3500 },
+  ],
+  monthly: [
+    { name: "Jan", totalEarnings: 520 },
+    { name: "Feb", totalEarnings: 600 },
+    { name: "Mar", totalEarnings: 700 },
+    { name: "Apr", totalEarnings: 800 },
+    { name: "May", totalEarnings: 900 },
+    { name: "Jun", totalEarnings: 1000 },
+    { name: "Jul", totalEarnings: 180 },
+    { name: "Aug", totalEarnings: 250 },
+    { name: "Sep", totalEarnings: 380 },
+    { name: "Oct", totalEarnings: 580 },
+    { name: "Nov", totalEarnings: 200 },
+    { name: "Dec", totalEarnings: 450 },
+  ],
+  yearly: [
+    { name: "2020", totalEarnings: 180000 },
+    { name: "2021", totalEarnings: 195000 },
+    { name: "2022", totalEarnings: 210000 },
+    { name: "2023", totalEarnings: 235000 },
+    { name: "2024", totalEarnings: 260000 },
+  ],
+};
 
 const CustomTooltip = ({ active, payload, label, period }) => {
   if (active && payload && payload.length) {
     const periodLabel =
-      period === 'weekly' ? 'Week' :
-      period === 'monthly' ? 'Month' : 'Year';
+      period === "weekly" ? "Week" : period === "monthly" ? "Month" : "Year";
     return (
       <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-md">
         <p className="font-semibold text-gray-800">{`${periodLabel}: ${label}`}</p>
@@ -43,127 +56,62 @@ const CustomTooltip = ({ active, payload, label, period }) => {
 };
 
 const IncomeGraphChart = () => {
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
-  const yearRange = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i); // 5 years before and after
-  const monthRange = monthNames.map((name, index) => ({ name, index }));
-  const [selectedPeriod, setSelectedPeriod] = useState("yearly");
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const chartRef = useRef(null);
+  // Using sample data for demonstration
+  const graphChartData = sampleData['monthly'] || [];
 
-  const { data: responseData } = useGetEarningGraphChartsQuery({
-    period: selectedPeriod,
-    year: selectedYear,
-    month: selectedPeriod === "monthly" || selectedPeriod === "weekly" ? selectedMonth + 1 : undefined
-  });
+  const renderChart = () => {
+    const commonProps = {
+      data: graphChartData,
+      margin: {
+        top: 50,
+        right: 20,
+        left: 0,
+        bottom: 10,
+      },
+    };
 
-  const graphChartData = responseData?.earnings || [];
-
-  const handleYearChange = (e) => {
-    setSelectedYear(Number(e.target.value));
+    return (
+      <AreaChart {...commonProps}>
+        <defs>
+          <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis
+          dataKey="name"
+          stroke="#6b7280"
+          axisLine={false}
+          tickLine={false}
+        />
+        <YAxis stroke="#6b7280" axisLine={false} tickLine={false} />
+        <Tooltip content={<CustomTooltip period={"monthly"} />} />
+        <Area
+          type="monotone"
+          dataKey="totalEarnings"
+          stroke="#3b82f6"
+          strokeWidth={3}
+          fill="url(#colorEarnings)"
+          fillOpacity={0.6}
+        />
+      </AreaChart>
+    );
   };
-
-  const handlePeriodChange = (e) => {
-    const value = e.target.value;
-    setSelectedPeriod(value);
-    if (value === "monthly" || value === "weekly") {
-      setSelectedMonth(currentMonth);
-    }
-  };
-
-  const handleMonthChange = (e) => {
-    setSelectedMonth(Number(e.target.value));
-  };
-
-  const chartTitle =
-    selectedPeriod === "weekly"
-      ? `Weekly Income for ${monthNames[selectedMonth]} ${selectedYear}`
-      : selectedPeriod === "monthly"
-      ? `Monthly Income for ${selectedYear}`
-      : `Yearly Income (${selectedYear - 5} - ${selectedYear + 5})`;
 
   return (
-    <div>
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <div className="flex items-center gap-3">
-            <h1 className="text-[20px] font-bold text-gray-800">{chartTitle}</h1>
-            <div className="flex gap-2">
-              <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
-                <FaChartBar className="mr-1" />{" "}
-                {selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}
-              </span>
-              <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-                <FaCalendar className="mr-1" /> {selectedYear}
-              </span>
-              {(selectedPeriod === "monthly" || selectedPeriod === "weekly") && (
-                <span className="inline-flex items-center px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">
-                  <FaClock className="mr-1" /> {monthNames[selectedMonth]}
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-4">
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Select Period</label>
-              <select
-                value={selectedPeriod}
-                onChange={handlePeriodChange}
-                className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary"
-                aria-label="Select Period"
-              >
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Select Year</label>
-              <select
-                value={selectedYear}
-                onChange={handleYearChange}
-                className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary"
-                aria-label="Select Year"
-              >
-                {yearRange.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {(selectedPeriod === "monthly" || selectedPeriod === "weekly") && (
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">Select Month</label>
-                <select
-                  value={selectedMonth}
-                  onChange={handleMonthChange}
-                  className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-primary"
-                  aria-label="Select Month"
-                >
-                  {monthRange.map(({ name, index }) => (
-                    <option key={index} value={index}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </div>
+    <div className="w-full space-y-2">
+      <h1 className="text-xl md:text-2xl text-gray-600  notranslate">
+        Revenue
+      </h1>
+      <div className="bg-white rounded-xl shadow-lg">
+        {/* Chart Container with ref for export */}
+        <div ref={chartRef} className="w-full">
+          <ResponsiveContainer width="100%" height={600}>
+            {renderChart()}
+          </ResponsiveContainer>
         </div>
-        <ResponsiveContainer width="100%" height={350}>
-          <BarChart
-            data={graphChartData}
-            margin={{ top: 20, right: 10, left: 10, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-            <XAxis dataKey="name" stroke="#6b7280" />
-            <YAxis stroke="#6b7280" />
-            <Tooltip content={<CustomTooltip period={selectedPeriod} />} />
-            <Bar dataKey="totalEarnings" barSize={20} fill="#3b82f6" />
-          </BarChart>
-        </ResponsiveContainer>
       </div>
     </div>
   );
