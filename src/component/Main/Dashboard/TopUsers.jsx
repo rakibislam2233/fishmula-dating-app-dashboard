@@ -89,7 +89,7 @@ const TopUsers = () => {
             <p className="text-sm">Try adjusting your search criteria</p>
           </div>
         ) : (
-          sampleUsers.map((user, index) => (
+          sampleUsers.map((user) => (
             <div
               key={user.id}
               className={`px-6 py-4 bg-white hover:bg-gray-50 transition-colors duration-200 border border-gray-200 rounded-2xl flex items-center gap-4`}
