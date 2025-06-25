@@ -8,6 +8,7 @@ body {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 400;
   box-sizing: border-box;
+  background-color: #DFDFDF;
 }
 select {
   appearance: none;

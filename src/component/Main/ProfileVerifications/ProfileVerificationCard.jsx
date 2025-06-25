@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import moment from "moment";
-import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { useState } from "react";
 import { Modal } from "antd";
+import moment from "moment";
+import { useState } from "react";
+import { imageBaseUrl } from "../../../config/imageBaseUrl";
 
 // eslint-disable-next-line react/prop-types
 const ProfileVerificationCard = ({ user }) => {

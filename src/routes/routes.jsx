@@ -33,6 +33,7 @@ import AddDeals from "../component/Main/AddDeals/AddDeals";
 import EditDeals from "../component/Main/EditDeals/EditDeals";
 import DealCategory from "../component/Main/DealCategory/DealCategory";
 import ProfileVerifications from "../component/Main/ProfileVerifications/ProfileVerifications";
+import LomiFlowerManagement from "../component/Main/LomiFlowerManagement/LomiFlowerManagement";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path:"/profile-verification",
         element: <ProfileVerifications/>
+      },
+      {
+        path:"/lomi-flower-management",
+        element: <LomiFlowerManagement/>
       },
       {
         path: "users/:id",
