@@ -1,39 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
+import AboutUs from "../component/Main/AboutUs/AboutUs";
+import AddSubscription from "../component/Main/AddSubscription/AddSubscription";
+import AllAdminSuperAdmin from "../component/Main/AllAdminSuperAdmin/AllAdminSuperAdmin";
 import AllUsers from "../component/Main/AllUsers/AllUsers";
+import UserReports from "../component/Main/UserReports/UserReports";
+import EditAboutUs from "../component/Main/EditAboutUs/EditAboutUs";
+import EditInformation from "../component/Main/EditPersonalInfo/EditPersonalInfo";
+import EditPrivacyPolicy from "../component/Main/EditPrivacyPolicy/EditPrivacyPolicy";
+import EditSubscription from "../component/Main/EditSubscription/EditSubscription";
+import EditTermsConditions from "../component/Main/EditTermsConditions/EditTermsConditions";
+import ErrorPage from "../component/Main/ErrorPage/ErrorPage";
+import LomiFlowerManagement from "../component/Main/LomiFlowerManagement/LomiFlowerManagement";
 import Notification from "../component/Main/Notification/Notification";
+import OnboardingImage from "../component/Main/OnBardingImages/OnBardingImages";
+import PersonalInformation from "../component/Main/PersonalInformation/PersonalInformation";
+import ProfileVerifications from "../component/Main/ProfileVerifications/ProfileVerifications";
+import Settings from "../component/Main/Settings/Settings";
+import Subscription from "../component/Main/Subscription/Subscription";
+import TermsCondition from "../component/Main/TermsConditions/TermsCondition";
+import Transaction from "../component/Main/Transaction/Transaction";
 import MainLayout from "../layout/MainLayout";
 import ForgetPassword from "../page/Auth/ForgetPassword/ForgetPassword";
 import NewPassword from "../page/Auth/NewPassword/NewPassword";
 import Otp from "../page/Auth/Otp/Otp";
 import SignIn from "../page/Auth/SignIn/SignIn";
 import DashboardHome from "../page/DashboardHome/DashboardHome";
-import AdminRoutes from "./AdminRoutes";
-import PersonalInformation from "../component/Main/PersonalInformation/PersonalInformation";
-import EditInformation from "../component/Main/EditPersonalInfo/EditPersonalInfo";
-import Settings from "../component/Main/Settings/Settings";
-import EditPrivacyPolicy from "../component/Main/EditPrivacyPolicy/EditPrivacyPolicy";
-import TermsCondition from "../component/Main/TermsConditions/TermsCondition";
-import AboutUs from "../component/Main/AboutUs/AboutUs";
-import EditTermsConditions from "../component/Main/EditTermsConditions/EditTermsConditions";
-import EditAboutUs from "../component/Main/EditAboutUs/EditAboutUs";
 import PrivacyPolicy from "../page/PrivacyPolicy/PrivacyPolicy";
-import AllAdminSuperAdmin from "../component/Main/AllAdminSuperAdmin/AllAdminSuperAdmin";
-import ErrorPage from "../component/Main/ErrorPage/ErrorPage";
-import Subscription from "../component/Main/Subscription/Subscription";
-import AddSubscription from "../component/Main/AddSubscription/AddSubscription";
-import EditSubscription from "../component/Main/EditSubscription/EditSubscription";
-import ContentModeration from "../component/Main/ContentModeration/ContentModeration";
-import ContentModerationDetails from "../component/Main/ContentModerationDetails/ContentModerationDetails";
-import DealsEvents from "../component/Main/DealsEvents/DealsEvents";
-import UserDetails from "../component/Main/UserDetails/UserDetails";
-import OnboardingImage from "../component/Main/OnBardingImages/OnBardingImages";
-import AddEvent from "../component/Main/AddEvent/AddEvent";
-import EditEvent from "../component/Main/EditEvent/EditEvent";
-import AddDeals from "../component/Main/AddDeals/AddDeals";
-import EditDeals from "../component/Main/EditDeals/EditDeals";
-import DealCategory from "../component/Main/DealCategory/DealCategory";
-import ProfileVerifications from "../component/Main/ProfileVerifications/ProfileVerifications";
-import LomiFlowerManagement from "../component/Main/LomiFlowerManagement/LomiFlowerManagement";
+import AdminRoutes from "./AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -62,45 +55,18 @@ const router = createBrowserRouter([
         element: <LomiFlowerManagement/>
       },
       {
-        path: "users/:id",
-        element: <UserDetails />,
+        path:"/transaction",
+        element:<Transaction/>
       },
       {
         path: "/admins",
         element: <AllAdminSuperAdmin />,
       },
       {
-        path: "/content-moderation",
-        element: <ContentModeration />,
+        path: "/user-reports",
+        element: <UserReports />,
       },
-      {
-        path: "/content-moderation/:id",
-        element: <ContentModerationDetails />,
-      },
-      {
-        path: "/deals-events",
-        element: <DealsEvents />,
-      },
-      {
-        path: "/deals-category",
-        element: <DealCategory />,
-      },
-      {
-        path: "/add-deals",
-        element: <AddDeals/>
-      },
-      {
-        path: "/edit-deals/:id",
-        element: <EditDeals/>
-      },
-      {
-        path: "/add-event",
-        element: <AddEvent/>
-      },
-      {
-        path: "/edit-event/:id",
-        element: <EditEvent/>
-      },
+
       {
         path: "/onboarding-images",
         element: <OnboardingImage />,

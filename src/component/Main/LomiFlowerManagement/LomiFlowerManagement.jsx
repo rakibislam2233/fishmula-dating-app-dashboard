@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import PerkManagement from "./PerkManagement";
-import SaleManagement from "./SaleManagement";
+import DiscountCodeManagement from "./DiscountCodeManagement";
 
 const LomiFlowerManagement = () => {
   const [activeTab, setActiveTab] = useState("perk_management");
@@ -20,7 +20,7 @@ const LomiFlowerManagement = () => {
           Send Mail to All Users
         </button>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-8">
         <button
           onClick={() => setActiveTab("perk_management")}
           className={`text-xl text-gray-900 font-semibold ${
@@ -30,17 +30,17 @@ const LomiFlowerManagement = () => {
           Perk Management
         </button>
         <button
-          onClick={() => setActiveTab("sale_management")}
+          onClick={() => setActiveTab("discount_code_management")}
           className={`text-xl text-gray-900 font-semibold ${
-            activeTab === "sale_management" ? "border-b-2 border-gray-900" : ""
+            activeTab === "discount_code_management" ? "border-b-2 border-gray-900" : ""
           }`}
         >
-          Sale Management
+          Discount Code Management
         </button>
       </div>
-      <div className="mt-5">
+      <div className="mt-10">
       {activeTab === "perk_management" && <PerkManagement />}
-      {activeTab === "sale_management" && <SaleManagement />}
+      {activeTab === "discount_code_management" && <DiscountCodeManagement />}
       </div>
     </section>
   );
