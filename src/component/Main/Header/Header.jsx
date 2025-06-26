@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { GrNotification } from "react-icons/gr";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { GrNotification } from "react-icons/gr";
 import {
   useGetUnviewNotificationsQuery,
   useViewAllNotificationMutation,
@@ -19,7 +19,7 @@ const socket = io("http://10.0.80.220:8082", {
   reconnectionDelay: 1000,
 });
 
-const Header = ({ toggleSidebar, isSidebarOpen }) => {
+const Header = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { data: responseData } = useGetUnviewNotificationsQuery();
@@ -65,46 +65,16 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
 
   return (
     <div
-      className={`${
-        isSidebarOpen ? "ml-[300px]" : "ml-[80px]"
-      } w-full h-24 px-5 bg-white flex justify-between items-center fixed text-white left-0  z-10 border-b border-[#E5E5E5]`}
+      className={`w-full h-24 px-5 bg-black flex justify-end items-center  text-white left-0  z-10 `}
     >
-      {/* Toggle Button */}
-      <button
-        className="p-1.5 bg-primary text-white rounded-full z-[999] pointer-events-auto shadow-lg absolute top-5 -left-5"
-        onClick={toggleSidebar}
-      >
-        {isSidebarOpen ? (
-          <IoChevronBack size={20} />
-        ) : (
-          <IoChevronForward size={20} />
-        )}
-      </button>
-      <div className="flex items-center gap-3">
-        {/* User Profile Section */}
-        <div className="flex items-center gap-4 p-1 md:p-4">
-          <img
-            onClick={() => navigate("/personal-info")}
-            src={`${imageBaseUrl}${user?.profileImage?.imageUrl}`}
-            className="size-14 rounded-full cursor-pointer object-cover"
-            alt="User Profile"
-          />
-          <div>
-            <h1 className="text-primary">Welcome</h1>
-            <p className="whitespace-nowrap truncate cursor-pointer text-gray-950 text-lg font-semibold">
-              {user?.fullName}
-            </p>
-          </div>
-        </div>
-      </div>
       <div className="flex items-center gap-3">
         {/* Notification Icon */}
         <div
           onClick={handleViewAllNotificationsAndNavigate}
           className="cursor-pointer"
         >
-          <div className="p-2 relative rounded-full border">
-            <GrNotification className="text-[#9E9E9E]" size={24} />
+          <div className="p-2 relative rounded-lg border border-gray-600">
+            <GrNotification className="text-white" size={24} />
             {unreadCount > 0 && (
               <span className="absolute top-0 right-0 bg-primary text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                 {unreadCount}
@@ -112,6 +82,18 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
             )}
           </div>
         </div>
+        <Link to="/settings/general-settings">
+        <div className="px-3 py-1.5 flex items-center gap-2 rounded-full border border-gray-600 cursor-pointer">
+          <img
+            onClick={() => navigate("/settings/general-settings")}
+            src={`${imageBaseUrl}${user?.profileImage?.imageUrl}`}
+            className="size-8 rounded-full cursor-pointer object-cover"
+            alt="User Profile"
+          />
+           <h1>{user?.fullName}</h1>
+           <ChevronDown className="size-6 text-white cursor-pointer" />
+        </div>
+        </Link>
       </div>
     </div>
   );

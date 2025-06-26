@@ -1,16 +1,16 @@
 import { Form } from "antd";
 import { useEffect, useState } from "react";
-import { IoChevronBack, IoCameraReverse } from "react-icons/io5";
+import { IoCameraReverse, IoChevronBack } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { imageBaseUrl } from "../../../config/imageBaseUrl";
+import { updateUser } from "../../../redux/features/auth/authSlice";
 import {
   useUpdateUserMutation,
 } from "../../../redux/features/profile/profileApi";
 import CustomButton from "../../../utils/CustomButton";
 import CustomInput from "../../../utils/CustomInput";
-import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../../redux/features/auth/authSlice";
 
 const EditGeneralSettings = () => {
   const { user } = useSelector((state) => state.auth);
@@ -68,7 +68,7 @@ const EditGeneralSettings = () => {
       {/* Back Button and Title */}
       <div className="flex justify-between items-center">
         <div className="flex gap-4 items-center my-6">
-          <Link to="/personal-info">
+          <Link to="/settings/general-settings">
             <IoChevronBack className="text-2xl" />
           </Link>
           <h1 className="text-2xl font-semibold">Edit Information</h1>

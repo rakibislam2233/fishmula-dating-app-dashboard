@@ -48,7 +48,7 @@ const Notification = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="w-full px-5 py-5 bg-[#DFDFDF] min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Notification</h1>
 
       {isLoading ? (
@@ -60,9 +60,9 @@ const Notification = () => {
           {notifications.map((item) => (
             <div
               key={item._id} // Use _id or appropriate unique identifier
-              className="border border-primary rounded-md p-4 flex items-center space-x-4"
+              className="bg-white  rounded-md p-4 flex items-center space-x-4"
             >
-              <div className="text-primary border-primary rounded-full p-2">
+              <div className="text-primary border border-primary rounded-full p-2">
                 <IoMdNotificationsOutline size={30} />
               </div>
               <div>
