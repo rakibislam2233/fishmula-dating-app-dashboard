@@ -216,21 +216,21 @@ const UserReports = () => {
   ];
 
   return (
-    <section className="w-full min-h-screen px-5">
+    <section className="w-full min-h-screen px-5 py-5">
       <div className="w-full flex justify-between items-center mb-10">
         <h1 className="text-xl md:text-2xl text-gray-800 font-semibold">
           All Reports
         </h1>
         <div className="flex items-center gap-3">
-          <div className="bg-white flex items-center gap-3 border border-gray-300 px-5 py-3 rounded-full">
-            <BiSearch className="size-5 text-gray-600" />
+          <div className="bg-white flex items-center gap-3 border border-primary px-5 py-3 rounded-full">
+            <BiSearch className="size-5 text-primary" />
             <input
               type="text"
               placeholder="Search"
-              className="w-full outline-none border-none"
+              className="w-full outline-none"
             />
           </div>
-          <button className="px-5 py-3 bg-white text-gray-600 rounded-full flex justify-between items-center gap-3 border border-gray-300">
+          <button className="px-5 py-3 bg-white text-primary rounded-full flex justify-between items-center gap-3">
             <CiSliderHorizontal className="size-6" />
             Filter
           </button>
@@ -242,8 +242,8 @@ const UserReports = () => {
             setActiveTab("image_reports");
             setCurrentData(imageReportsData);
           }}
-          className={`px-5 py-3 bg-white text-gray-600 rounded-full flex justify-between items-center gap-3 border border-gray-300 ${
-            activeTab === "image_reports" ? "bg-blue-600 text-white" : ""
+          className={`px-5 py-3  text-gray-600 rounded-lg flex justify-between items-center gap-3 ${
+            activeTab === "image_reports" ? "bg-black border-b-4 border-primary text-primary" : ""
           }`}
         >
           Image Reports
@@ -253,8 +253,8 @@ const UserReports = () => {
             setActiveTab("message_reports");
             setCurrentData(messageReportsData);
           }}
-          className={`px-5 py-3 bg-white text-gray-600 rounded-full flex justify-between items-center gap-3 border border-gray-300 ${
-            activeTab === "message_reports" ? "bg-blue-600 text-white" : ""
+          className={`px-5 py-3  text-gray-600 rounded-lg flex justify-between items-center gap-3 ${
+            activeTab === "message_reports" ? "bg-black border-b-4 border-primary text-primary" : ""
           }`}
         >
           Message Reports

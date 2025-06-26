@@ -12,7 +12,7 @@ import { imageBaseUrl } from "../../../config/imageBaseUrl";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../../redux/features/auth/authSlice";
 
-const EditInformation = () => {
+const EditGeneralSettings = () => {
   const { user } = useSelector((state) => state.auth);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const EditInformation = () => {
         dispatch(updateUser({ user: response?.data?.attributes }));
 
         toast.success("Profile updated successfully!");
-        navigate("/personal-info");
+        navigate("/settings/general-settings");
       }
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -76,7 +76,7 @@ const EditInformation = () => {
       </div>
 
       {/* Profile Information */}
-      <div className="w-full h-full grid grid-cols-1 md:grid-cols-12 gap-8 mt-10">
+      <div className="w-full h-full max-w-xl mx-auto bg-white px-5 py-10 border border-gray-700 gap-8 mt-10">
         {/* Profile Picture */}
         <div className="w-full col-span-full md:col-span-3 place-items-center flex justify-center items-center flex-col gap-3 relative">
           {/* Image preview */}
@@ -122,11 +122,6 @@ const EditInformation = () => {
             <CustomInput placeholder="Enter your email" readOnly />
           </Form.Item>
 
-          {/* Phone Number */}
-          <Form.Item label="Phone Number" name="phone">
-            <CustomInput placeholder="Enter your phone number" />
-          </Form.Item>
-
           {/* Submit Button */}
           <CustomButton loading={isLoading} className="w-full">
             Update Information
@@ -137,4 +132,4 @@ const EditInformation = () => {
   );
 };
 
-export default EditInformation;
+export default EditGeneralSettings;

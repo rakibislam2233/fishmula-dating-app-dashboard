@@ -68,8 +68,8 @@ const EditAboutUs = () => {
             </Form.Item>
 
             {/* Update Button */}
-            <div className="flex justify-end">
-              <CustomButton loading={isUpdating}>
+            <div className="w-full  flex justify-end">
+              <CustomButton className={"w-full"} loading={isUpdating}>
                 {isUpdating ? "Updating..." : "Update"}
               </CustomButton>
             </div>

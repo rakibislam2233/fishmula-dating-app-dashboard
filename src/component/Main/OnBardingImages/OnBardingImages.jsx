@@ -1,89 +1,66 @@
-import {
-    DeleteOutlined,
-    PlusOutlined,
-    UploadOutlined,
-} from "@ant-design/icons";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import { imageBaseUrl } from "../../../config/imageBaseUrl";
-import {
-    useAddOnbardingImageMutation,
-    useDeleteOnbardingImageMutation,
-    useGetOnbardingImageQuery,
-} from "../../../redux/features/onbardingImage/onbardingImage";
+import { useCallback, useRef, useState } from "react";
+import { Upload, X } from "lucide-react";
 
 const OnboardingImage = () => {
   const [onboardingImages, setOnboardingImages] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
-
-  // Fetch existing onboarding images from the backend
-  const { data: fetchedImages, isLoading: isFetching } =
-    useGetOnbardingImageQuery();
-  const [addOnbardingImage, { isLoading: isUploading }] =
-    useAddOnbardingImageMutation();
-  const [deleteOnbardingImage, { isLoading: isDeleting }] =
-    useDeleteOnbardingImageMutation();
-
-  // Sync fetched images with local state
-  useEffect(() => {
-    if (fetchedImages?.data) {
-      // Assuming fetchedImages.data is an array of objects like { id, imageUrl }
-      setOnboardingImages(
-        fetchedImages?.data?.attributes?.map((img) => ({
-          id: img?._id,
-          imageUrl: img?.imageUrl, // Assuming the backend returns the URL of the image
-        }))
-      );
-    }
-  }, [fetchedImages]);
 
   // Handle file validation
   const validateFiles = useCallback((files) => {
     const validFileExtensions = ["image/jpeg", "image/png"];
-    const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 10 * 1024 * 1024; // 10MB
 
     return Array.from(files).filter((file) => {
       if (!validFileExtensions.includes(file.type)) {
-        toast.error(`${file.name} is not a valid image (JPG/PNG only)`);
+        alert(`${file.name} is not a valid image (JPG/PNG only)`);
         return false;
       }
       if (file.size > maxSize) {
-        toast.error(`${file.name} exceeds 2MB size limit`);
+        alert(`${file.name} exceeds 10MB size limit`);
         return false;
       }
       return true;
     });
   }, []);
 
-  // Process valid files and upload to the backend
+  // Process valid files
   const processFiles = useCallback(
     async (files) => {
       const validFiles = validateFiles(files);
       if (validFiles.length === 0) return;
 
-      // Upload each valid file to the backend
+      setIsUploading(true);
+
+      // Simulate upload process
       for (const file of validFiles) {
         try {
-          const formData = new FormData();
-          formData.append("photo_album", file); // Assuming the backend expects the file under the key "image"
+          // Create preview URL
+          const imageUrl = URL.createObjectURL(file);
+          const newImage = {
+            id: Date.now() + Math.random(),
+            imageUrl: imageUrl,
+          };
 
-          await addOnbardingImage(formData).unwrap();
-          toast.success(`Image uploaded successfully`);
+          setOnboardingImages((prev) => [...prev, newImage]);
+
+          // Simulate API call delay
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (error) {
-          toast.error(
-            `Failed to upload ${file.name}: ${error.message || "Unknown error"}`
-          );
+          console.error("Upload failed:", error);
         }
       }
+
+      setIsUploading(false);
     },
-    [validateFiles, addOnbardingImage]
+    [validateFiles]
   );
 
   // Handle file input change
   const handleImageUpload = (e) => {
     processFiles(e.target.files);
-    e.target.value = ""; // Reset input to allow same file re-upload
+    e.target.value = "";
   };
 
   // Handle drag events
@@ -108,59 +85,45 @@ const OnboardingImage = () => {
   };
 
   // Remove Image
-  const handleRemoveImage = async (id) => {
-    console.log(id);
-    try {
-      await deleteOnbardingImage(id).unwrap();
-      toast.success("Image removed successfully");
-    } catch (error) {
-      toast.error(
-        `Failed to remove image: ${error.message || "Unknown error"}`
-      );
-    }
+  const handleRemoveImage = (id) => {
+    setOnboardingImages((prev) => prev.filter((img) => img.id !== id));
   };
 
   // Trigger file input
   const handleClickUpload = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
+  };
+
+  const handleCancel = () => {
+    console.log("Cancel clicked");
+  };
+
+  const handleSaveChanges = () => {
+    console.log("Save Changes clicked");
   };
 
   return (
-    <section className="w-full bg-white border-gray-200">
-      {/* Image Upload Section */}
-      <div className="mb-8 p-5">
-        {/* Image Previews */}
-        <div className="flex flex-wrap gap-4 mb-6">
-          {isFetching ? (
-            <p>Loading images...</p>
-          ) : (
-            onboardingImages.map((image, index) => (
-              <div
-                key={image.id}
-                className="w-72 relative group border rounded-lg"
-              >
-                <img
-                  src={`${imageBaseUrl}${image?.imageUrl}`}
-                  alt={`Onboarding preview ${index + 1}`}
-                  className="h-56 w-full object-cover rounded-lg"
-                />
-                <button
-                  onClick={() => handleRemoveImage(image?.id)}
-                  className="absolute top-3 right-2 size-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition"
-                  disabled={isDeleting}
-                >
-                  <DeleteOutlined className="text-sm" />
-                </button>
-              </div>
-            ))
-          )}
+    <div className="w-full flex items-center justify-center p-4">
+      {/* Modal Container */}
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-xl p-6">
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-lg font-medium text-gray-800 mb-2">
+            Onboarding Editor
+          </h2>
         </div>
-        {/* Drag and Drop Area */}
+
+        {/* Upload Restriction Text */}
+        <div className="mb-4">
+          <p className="text-sm text-gray-600">You can upload only 1 media.</p>
+        </div>
+
+        {/* Upload Area */}
         <div
-          className={`border border-dashed rounded-lg p-8 cursor-pointer transition ${
+          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 mb-6 ${
             isDragging
-              ? "border-blue-500 bg-blue-50"
-              : "border-gray-300 bg-gray-50 hover:border-blue-400"
+              ? "border-blue-400 bg-blue-50"
+              : "border-gray-300 hover:border-gray-400"
           }`}
           onClick={handleClickUpload}
           onDragEnter={handleDragEnter}
@@ -168,39 +131,73 @@ const OnboardingImage = () => {
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >
-          <div className="flex flex-col items-center justify-center">
-            {isDragging ? (
-              <>
-                <UploadOutlined className="text-4xl text-blue-500 mb-2" />
-                <p className="text-lg font-medium text-primary">
-                  Drop your images here
-                </p>
-              </>
-            ) : (
-              <>
-                <PlusOutlined className="text-4xl text-gray-400 mb-2" />
-                <p className="text-lg font-medium">
-                  <span className="text-primary">Click to upload</span> or drag
-                  and drop
-                </p>
-              </>
-            )}
-            <p className="text-sm text-gray-500 mt-1">
-              JPG or PNG (Max 2MB each)
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center mb-4">
+              <Upload className="w-5 h-5 text-gray-400" />
+            </div>
+
+            <p className="text-gray-600 mb-2">
+              Choose a file or drag & drop it here
             </p>
+            <p className="text-xs text-gray-500 mb-4">
+              jpg, jpeg, png, mp4 formats, up to 50MB
+            </p>
+
+            <button
+              className="px-4 py-2 border border-gray-300 rounded text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+              disabled={isUploading}
+            >
+              Browse File
+            </button>
           </div>
+
           <input
             type="file"
-            accept="image/jpeg,image/png"
+            accept="image/jpeg,image/png,image/jpg,video/mp4"
             onChange={handleImageUpload}
             className="hidden"
             ref={fileInputRef}
-            multiple
             disabled={isUploading}
           />
         </div>
+
+        {/* Image Preview */}
+        {onboardingImages.length > 0 && (
+          <>
+            {" "}
+            <div className="mb-6">
+              <div className="relative inline-block">
+                <img
+                  src={onboardingImages[0].imageUrl}
+                  alt="Onboarding preview"
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+                <button
+                  onClick={() => handleRemoveImage(onboardingImages[0].id)}
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            </div>
+            <div className="flex space-x-3">
+              <button
+                onClick={handleCancel}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveChanges}
+                className="flex-1 px-4 py-2 bg-yellow-400 text-gray-800 rounded hover:bg-yellow-500 transition-colors font-medium"
+              >
+                Save Changes
+              </button>
+            </div>
+          </>
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 
