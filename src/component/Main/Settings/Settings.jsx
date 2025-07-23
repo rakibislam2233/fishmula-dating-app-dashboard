@@ -36,7 +36,11 @@ const Settings = () => {
     {
       title: "Privacy Policy",
       path: "/settings/privacy-policy",
-    }
+    },
+    {
+      title: "Safety Tips",
+      path: "/settings/safety-tips",
+    },
   ];
 
   const handleSettingClick = (title, index) => {

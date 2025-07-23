@@ -16,16 +16,16 @@ const UserCard = ({ user }) => {
     setIsModalOpen(true);
   };
 
+  const getFirstWord = (title) => {
+    return title?.split(" ")[0];
+  };
   return (
     <div className="w-full p-4 border border-[#777777] bg-white rounded-lg space-y-5">
       <div className="flex justify-between items-center gap-4">
         <div className="flex items-center gap-4">
-          <img
-            // eslint-disable-next-line react/prop-types
-            src={`${imageBaseUrl}${profileImage?.imageUrl}`}
-            alt={fullName}
-            className="w-16 h-16 rounded-full object-cover"
-          />
+          <div className="size-12 rounded-full bg-gray-100 flex justify-center items-center">
+            {getFirstWord(fullName)?.charAt(0).toUpperCase()}
+          </div>
           <div>
             <h1>User Name</h1>
             <h1 className="font-medium">{fullName}</h1>
@@ -84,8 +84,15 @@ const UserCard = ({ user }) => {
           </div>
         </div>
         <div className="flex justify-center mt-8 items-center gap-5">
-          <button onClick={() => setIsModalOpen(false)} className="px-5 py-2 border border-gray-500 text-gray-500 rounded-md">Go Back</button>
-          <button className="px-8 py-2 border border-rose-500 text-rose-500 rounded-md">{openModalType === "block" ? "Block" : "Suspend"}</button>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="px-5 py-2 border border-gray-500 text-gray-500 rounded-md"
+          >
+            Go Back
+          </button>
+          <button className="px-8 py-2 border border-rose-500 text-rose-500 rounded-md">
+            {openModalType === "block" ? "Block" : "Suspend"}
+          </button>
         </div>
       </Modal>
     </div>

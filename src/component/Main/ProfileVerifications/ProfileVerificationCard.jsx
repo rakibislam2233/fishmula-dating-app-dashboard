@@ -13,16 +13,18 @@ const ProfileVerificationCard = ({ user }) => {
     setIsModalOpen(true);
   };
 
+  const getFirstWord = (title) => {
+    //get only 1st word from title
+    const words = title.split(" ");
+    return words[0];
+  };
   return (
     <div className="w-full p-4 border border-[#777777] bg-white rounded-lg space-y-5">
       <div className="flex justify-between items-center gap-4">
         <div className="flex items-center gap-4">
-          <img
-            // eslint-disable-next-line react/prop-types
-            src={`${imageBaseUrl}${profileImage?.imageUrl}`}
-            alt={fullName}
-            className="w-16 h-16 rounded-full object-cover"
-          />
+          <div className="size-12  rounded-full bg-gray-100 flex justify-center items-center">
+            {getFirstWord(fullName).charAt(0).toUpperCase()}
+          </div>
           <div>
             <h1>User Name</h1>
             <h1 className="font-medium">{fullName}</h1>
@@ -57,6 +59,7 @@ const ProfileVerificationCard = ({ user }) => {
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
+        centered
         title="Media"
       >
         <img

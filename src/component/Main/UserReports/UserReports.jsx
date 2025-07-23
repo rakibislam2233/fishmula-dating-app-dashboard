@@ -7,6 +7,8 @@ import { BiSearch } from "react-icons/bi";
 import { CiSliderHorizontal } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { imageBaseUrl } from "../../../config/imageBaseUrl";
+import { Eye } from "lucide-react";
+import { EyeOutlined } from "@ant-design/icons";
 
 const UserReports = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -87,6 +89,9 @@ const UserReports = () => {
     },
   ];
 
+  const getFirstWord = (title) => {
+    return title?.split(" ")[0];
+  };
   // Update currentData based on activeTab
   const [currentData, setCurrentData] = useState(
     activeTab === "image_reports" ? imageReportsData : messageReportsData
@@ -119,11 +124,9 @@ const UserReports = () => {
       key: "reportedBy",
       render: (text, record) => (
         <div className="flex items-center gap-1">
-          <img
-            src={`${imageBaseUrl}${record?.reportedByUserImage}`}
-            alt={record?.reportedBy}
-            className="w-10 h-10 rounded-full object-cover"
-          />
+          <div className="size-12  rounded-full bg-gray-100 flex justify-center items-center">
+            {getFirstWord(record?.reportedBy)?.charAt(0).toUpperCase()}
+          </div>
           <span className="ml-2">{record?.reportedBy}</span>
         </div>
       ),
@@ -139,11 +142,9 @@ const UserReports = () => {
       key: "reportedUser",
       render: (text, record) => (
         <div className="flex items-center gap-1">
-          <img
-            src={`${imageBaseUrl}${record?.reportedUserImage}`}
-            alt={record?.reportedBy}
-            className="w-10 h-10 rounded-full object-cover"
-          />
+          <div className="size-12 rounded-full bg-gray-100 flex justify-center items-center">
+            {getFirstWord(record?.reportedUser)?.charAt(0).toUpperCase()}
+          </div>
           <span className="ml-2">{record?.reportedUser}</span>
         </div>
       ),
@@ -171,46 +172,19 @@ const UserReports = () => {
               ? "blue"
               : "red"
           }
-          className="capitalize rounded-full px-3 py-1"
+          className="capitalize rounded-full px-3 py-0.5"
         >
           {record?.status}
         </Tag>
       ),
     },
     {
-      title: "Update Status",
-      key: "updateStatus",
-      render: (_, record) => {
-        const statusOptions =
-          record.status === "resolved" || record.status === "rejected"
-            ? allStatusOptions.filter((option) => option.value !== "pending")
-            : allStatusOptions;
-
-        return (
-          <select
-            defaultValue={record.status}
-            style={{ width: 120 }}
-            onChange={(e) => handleStatusUpdate(record.key, e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {statusOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        );
-      },
-    },
-    {
       title: "View",
       key: "action",
       render: (_, record) => (
-        <Link to={`/content-moderation/${record?.key}`}>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
-            View
-          </button>
-        </Link>
+        <button className="px-4 py-2 border rounded-lg">
+          <Eye size={20} className="text-gray-500a" />
+        </button>
       ),
     },
   ];
@@ -243,7 +217,9 @@ const UserReports = () => {
             setCurrentData(imageReportsData);
           }}
           className={`px-5 py-3  text-gray-600 rounded-lg flex justify-between items-center gap-3 ${
-            activeTab === "image_reports" ? "bg-black border-b-4 border-primary text-primary" : ""
+            activeTab === "image_reports"
+              ? "bg-black border-b-4 border-primary text-primary"
+              : ""
           }`}
         >
           Image Reports
@@ -254,7 +230,9 @@ const UserReports = () => {
             setCurrentData(messageReportsData);
           }}
           className={`px-5 py-3  text-gray-600 rounded-lg flex justify-between items-center gap-3 ${
-            activeTab === "message_reports" ? "bg-black border-b-4 border-primary text-primary" : ""
+            activeTab === "message_reports"
+              ? "bg-black border-b-4 border-primary text-primary"
+              : ""
           }`}
         >
           Message Reports

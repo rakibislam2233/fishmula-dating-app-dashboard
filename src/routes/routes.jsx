@@ -30,12 +30,14 @@ import EditGeneralSettings from "../component/Main/EditGeneralSettings/EditGener
 import PasswordSettings from "../component/Main/PasswordSettings/PasswordSettings";
 import PreferredCountries from "../component/Main/PreferredCountries/PreferredCountries";
 import SupportMail from "../component/Main/SupportMail/SupportMail";
+import SafetyTips from "../component/Main/SafetyTips/SafetyTips";
+import EditSafetyTips from "../component/Main/EditSafetyTips/EditSafetyTips";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-        <MainLayout />
+      <MainLayout />
       // <AdminRoutes>
       // </AdminRoutes>
     ),
@@ -50,16 +52,16 @@ const router = createBrowserRouter([
         element: <AllUsers />,
       },
       {
-        path:"/profile-verification",
-        element: <ProfileVerifications/>
+        path: "/profile-verification",
+        element: <ProfileVerifications />,
       },
       {
-        path:"/lomi-flower-management",
-        element: <LomiFlowerManagement/>
+        path: "/lomi-flower-management",
+        element: <LomiFlowerManagement />,
       },
       {
-        path:"/transaction",
-        element:<Transaction/>
+        path: "/transaction",
+        element: <Transaction />,
       },
       {
         path: "/admins",
@@ -121,6 +123,14 @@ const router = createBrowserRouter([
       {
         path: "settings/terms-conditions",
         element: <TermsCondition />,
+      },
+      {
+        path: "settings/safety-tips",
+        element: <SafetyTips />,
+      },
+      {
+        path: "settings/edit-safety-tips",
+        element: <EditSafetyTips />,
       },
       {
         path: "settings/about-us",
