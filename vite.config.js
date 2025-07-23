@@ -9,11 +9,11 @@ export default defineConfig({
   },
   server: {
     host: "0.0.0.0",
-    port: 7002,
+    port: 7000,
     allowedHosts: [
       "localhost",
       "127.0.0.1",
-      "rakib7002.sobhoy.com" // Add this host
+      "rakib7000.sobhoy.com"
     ]
   }
 });
