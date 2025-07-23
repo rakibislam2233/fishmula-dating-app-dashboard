@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
   }
   return (
     <section className="w-full h-full px-5">
-      <div className="flex justify-between items-center py-4 border-b-2 border-gray-400 mb-4">
+      <div className="flex justify-between items-center py-4  mb-4">
         <div className="flex gap-2 items-center">
           <Link to="/settings">
             <IoChevronBack className="text-2xl" />
@@ -32,8 +32,8 @@ const PrivacyPolicy = () => {
       </div>
       {/* Your privacy policy content goes here */}
       <div
-       className="pb-9"
         dangerouslySetInnerHTML={{ __html: responseData?.privacyPolicy }}
+        className="bg-white p-5 rounded-lg"
       ></div>
     </section>
   );

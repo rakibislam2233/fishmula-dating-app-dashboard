@@ -271,9 +271,9 @@ const Subscription = () => {
                 <Form.Item name="originalPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("originalPrice", value, lomiForm, setLomiFormValues)}
                     value={lomiFormValues.originalPrice}
@@ -293,9 +293,9 @@ const Subscription = () => {
                 <Form.Item name="discountPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("discountPrice", value, lomiForm, setLomiFormValues)}
                     value={lomiFormValues.discountPrice}
@@ -380,9 +380,9 @@ const Subscription = () => {
                 <Form.Item name="originalPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("originalPrice", value, flowerForm, setFlowerFormValues)}
                     value={flowerFormValues.originalPrice}
@@ -402,9 +402,9 @@ const Subscription = () => {
                 <Form.Item name="discountPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("discountPrice", value, flowerForm, setFlowerFormValues)}
                     value={flowerFormValues.discountPrice}
@@ -526,9 +526,9 @@ const Subscription = () => {
                 <Form.Item name="originalPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("originalPrice", value, premiumForm, setPremiumFormValues)}
                     value={premiumFormValues.originalPrice}
@@ -548,9 +548,9 @@ const Subscription = () => {
                 <Form.Item name="discountPrice" className="mb-0">
                   <Slider
                     min={1}
-                    max={10000}
-                    step={0.01}
-                    marks={{ 1: "$1", 10000: "$10000" }}
+                    max={100}
+                    step={1}
+                    marks={{ 1: "$1", 100: "$100" }}
                     tooltip={{ formatter: (value) => `$${value.toFixed(2)}` }}
                     onChange={(value) => handleSliderChange("discountPrice", value, premiumForm, setPremiumFormValues)}
                     value={premiumFormValues.discountPrice}

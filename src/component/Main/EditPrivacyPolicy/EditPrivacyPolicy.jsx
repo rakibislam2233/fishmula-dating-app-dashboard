@@ -8,7 +8,6 @@ import {
   useAddPrivacyPolicyMutation,
   useGetPrivacyPolicyQuery,
 } from "../../../redux/features/settings/settingsApi";
-import CustomButton from "../../../utils/CustomButton";
 
 const EditPrivacyPolicy = () => {
   const [form] = Form.useForm();
@@ -16,7 +15,7 @@ const EditPrivacyPolicy = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
   const { data: responseData, isLoading } = useGetPrivacyPolicyQuery();
-  const [addPrivacyPolicy, { isLoading: isMutating }] =
+  const [addPrivacyPolicy, { isLoading: isUpdating }] =
     useAddPrivacyPolicyMutation();
 
   // Set the editor content when the response data is loaded
@@ -41,7 +40,7 @@ const EditPrivacyPolicy = () => {
   return (
     <section className="w-full px-5 h-full min-h-screen">
       {/* Header Section */}
-      <div className="flex justify-between items-center py-6 border-b-2 border-gray-400 mb-4">
+      <div className="flex justify-between items-center py-6 mb-4">
         <div className="flex gap-2 items-center">
           <Link to="/settings">
             <IoChevronBack className="text-2xl" />
@@ -69,10 +68,13 @@ const EditPrivacyPolicy = () => {
             </Form.Item>
 
             {/* Update Button */}
-            <div className="flex justify-end">
-              <CustomButton loading={isMutating}>
-                {isMutating ? "Updating..." : "Update"}
-              </CustomButton>
+            <div className="w-full flex justify-end p-5">
+              <button
+                type="submit"
+                className="px-6 py-2.5 text-white rounded-lg bg-primary "
+              >
+                {isUpdating ? "Updating..." : "Update"}
+              </button>
             </div>
           </Form>
         </div>

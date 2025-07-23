@@ -16,7 +16,7 @@ const TermsCondition = () => {
   }
   return (
     <section className="w-full h-full min-h-screen px-5 pb-8">
-      <div className="flex justify-between items-center py-4 border-b-2 border-gray-400 mb-4">
+      <div className="flex justify-between items-center py-4 mb-4">
         <div className="flex gap-2 items-center">
           <Link to="/settings">
             <IoChevronBack className="text-2xl" />
@@ -33,6 +33,7 @@ const TermsCondition = () => {
       {/* Your privacy policy content goes here */}
       <div
         dangerouslySetInnerHTML={{ __html: responseData?.termsConditions }}
+        className="bg-white p-5 rounded-lg"
       ></div>
     </section>
   );

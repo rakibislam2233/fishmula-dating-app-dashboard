@@ -7,13 +7,12 @@ import {
   useAddTermsAndConditionsMutation,
 } from "../../../redux/features/settings/settingsApi";
 import { toast } from "sonner";
-import CustomButton from "../../../utils/CustomButton";
 import JoditEditor from "jodit-react"; // Import Jodit Editor
 
 const EditTermsConditions = () => {
   const [form] = Form.useForm();
   const [content, setContent] = useState("");
-  const editor = useRef(null); 
+  const editor = useRef(null);
   const navigate = useNavigate();
 
   // Fetch Terms and Conditions content
@@ -47,7 +46,7 @@ const EditTermsConditions = () => {
   return (
     <section className="w-full px-5 h-full min-h-screen">
       {/* Header Section */}
-      <div className="flex justify-between items-center py-6 border-b-2 border-gray-400 mb-4">
+      <div className="flex justify-between items-center py-6  mb-4">
         <div className="flex gap-2 items-center">
           <Link to="/settings">
             <IoChevronBack className="text-2xl" />
@@ -70,15 +69,17 @@ const EditTermsConditions = () => {
                 ref={editor} // Attach the ref to the JoditEditor
                 value={content}
                 onChange={(newContent) => setContent(newContent)} // Handle changes
-
               />
             </Form.Item>
 
             {/* Update Button */}
-            <div className="flex justify-end">
-              <CustomButton loading={isUpdating}>
+            <div className="w-full flex justify-end p-5">
+              <button
+                type="submit"
+                className="px-6 py-2.5 text-white rounded-lg bg-primary "
+              >
                 {isUpdating ? "Updating..." : "Update"}
-              </CustomButton>
+              </button>
             </div>
           </Form>
         </div>

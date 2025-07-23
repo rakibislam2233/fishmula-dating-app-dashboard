@@ -1,4 +1,4 @@
-import { ConfigProvider, Table, Tag } from "antd";
+import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CiSliderHorizontal } from "react-icons/ci";
@@ -18,7 +18,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 5,
       status: "read",
-      priority: "high",
       date: "2024-01-15",
     },
     {
@@ -28,7 +27,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 3,
       status: "unread",
-      priority: "medium",
       date: "2024-01-14",
     },
     {
@@ -38,7 +36,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 7,
       status: "read",
-      priority: "low",
       date: "2024-01-13",
     },
     {
@@ -48,7 +45,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 2,
       status: "unread",
-      priority: "high",
       date: "2024-01-12",
     },
     {
@@ -58,7 +54,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 4,
       status: "read",
-      priority: "medium",
       date: "2024-01-11",
     },
     {
@@ -68,7 +63,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 6,
       status: "unread",
-      priority: "low",
       date: "2024-01-10",
     },
     {
@@ -78,7 +72,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 1,
       status: "read",
-      priority: "high",
       date: "2024-01-09",
     },
     {
@@ -88,7 +81,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 8,
       status: "unread",
-      priority: "medium",
       date: "2024-01-08",
     },
     {
@@ -98,7 +90,6 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 3,
       status: "read",
-      priority: "low",
       date: "2024-01-07",
     },
     {
@@ -108,30 +99,16 @@ const SupportMail = () => {
       subject: "Lorem Ipsum Dolor Sit Amet...",
       attachment: 5,
       status: "unread",
-      priority: "high",
       date: "2024-01-06",
     },
   ];
 
-  const [currentData, setCurrentData] = useState(supportMailData);
+  const [currentData] = useState(supportMailData);
   const totalResult = currentData.length;
 
   const handlePaginationChange = (page, size) => {
     setCurrentPage(page);
     setPageSize(size);
-  };
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case "high":
-        return "#ff4d4f";
-      case "medium":
-        return "#faad14";
-      case "low":
-        return "#52c41a";
-      default:
-        return "#d9d9d9";
-    }
   };
 
   const columns = [
@@ -196,19 +173,6 @@ const SupportMail = () => {
         >
           {text}
         </span>
-      ),
-    },
-    {
-      title: "Priority",
-      dataIndex: "priority",
-      key: "priority",
-      render: (priority) => (
-        <Tag
-          color={getPriorityColor(priority)}
-          className="capitalize rounded-full px-3 py-1"
-        >
-          {priority}
-        </Tag>
       ),
     },
     {
