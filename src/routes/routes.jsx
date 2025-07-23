@@ -24,7 +24,7 @@ import Otp from "../page/Auth/Otp/Otp";
 import SignIn from "../page/Auth/SignIn/SignIn";
 import DashboardHome from "../page/DashboardHome/DashboardHome";
 import PrivacyPolicy from "../page/PrivacyPolicy/PrivacyPolicy";
-import AdminRoutes from "./AdminRoutes";
+// import AdminRoutes from "./AdminRoutes";
 import GeneralSettings from "../component/Main/GeneralSettings/GeneralSettings";
 import EditGeneralSettings from "../component/Main/EditGeneralSettings/EditGeneralSettings";
 import PasswordSettings from "../component/Main/PasswordSettings/PasswordSettings";

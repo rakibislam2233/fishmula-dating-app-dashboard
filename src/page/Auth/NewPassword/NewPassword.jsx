@@ -31,7 +31,7 @@ const NewPassword = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto h-full md:h-screen grid grid-cols-1 md:grid-cols-2 place-content-center px-5 py-10 gap-8 bg-white ">
+    <div className="w-full max-w-6xl mx-auto h-full md:h-screen grid grid-cols-1 md:grid-cols-2 place-content-center px-5 py-10 gap-8 ">
       <div>
         <img
           src={changePasswordImage}
